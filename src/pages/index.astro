@@ -1,0 +1,235 @@
+---
+import { Award, BadgeDollarSign, Dumbbell, Megaphone, ShieldCheck, TrendingUp, Users } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import heroFootball from '../assets/images/hero-football.jpg';
+import logo from '../assets/images/vm-logo.png';
+import quoteAthlete from '../assets/images/quote-athlete.jpg';
+import servicesFootball from '../assets/images/services-football.jpg';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const athletes = [
+  {
+    name: 'Cody Corales',
+    sport: 'Football',
+    role: 'Halfback - St. Pauls High',
+    meta: '2026 / 5\'11 190 lbs.',
+    honors: ['All-State', 'Parish MVP', 'District MVP'],
+  },
+  {
+    name: 'Micah Gifford',
+    sport: 'Football',
+    role: 'Safety - Baylor',
+    meta: '6\'3 207 lbs.',
+    honors: ['Defensive back', 'College athlete'],
+  },
+  {
+    name: 'Dylan Henry',
+    sport: 'Football',
+    role: 'Safety - Mandeville',
+    meta: '2027 / 5\'11 175 lbs.',
+    honors: ['All-State', 'All-Parish', 'All-District'],
+  },
+  {
+    name: 'Jordan Collins',
+    sport: 'Football',
+    role: 'OL - Destrehan High School',
+    meta: '6\'4 305 lbs.',
+    honors: ['Offensive line', 'Prospect development'],
+  },
+  {
+    name: 'Tucker Wade',
+    sport: 'Football',
+    role: 'Quarterback - Orange Beach High',
+    meta: '2029 / 6\'0 180 lbs.',
+    honors: ['All Freshman First Team'],
+  },
+  {
+    name: 'Triston Naquin',
+    sport: 'Basketball',
+    role: 'Forward - Archbishop Shaw',
+    meta: '2027 / 6\'6 210 lbs.',
+    honors: ['D1 Super Sleeper', 'Offers from ASU', '4 Star ESPN'],
+  },
+];
+
+const services = [
+  { title: 'Branding', icon: Megaphone, text: 'Build a public identity that is clear, credible, and positioned for opportunity.' },
+  { title: 'Development', icon: Dumbbell, text: 'Shape athletic, personal, and professional growth around long-term goals.' },
+  { title: 'Recruiting', icon: Users, text: 'Connect talent with the right programs, coaches, and next-step pathways.' },
+  { title: 'Finance', icon: TrendingUp, text: 'Give athletes practical guidance for managing new earning potential.' },
+  { title: 'NIL', icon: BadgeDollarSign, text: 'Create and manage name, image, and likeness opportunities with discipline.' },
+];
+---
+
+<BaseLayout
+  title="Varsity Management LLC"
+  description="Varsity Management equips athletes with branding, NIL management, recruiting, development, and financial growth support."
+>
+  <Header />
+  <main class="bg-zinc-950 text-zinc-100">
+    <section class="relative isolate min-h-[92svh] overflow-hidden pt-20">
+      <Image
+        src={heroFootball}
+        alt="Close-up of a football player resting on a helmet"
+        widths={[640, 960, 1280, 1600]}
+        sizes="100vw"
+        priority
+        class="absolute inset-0 -z-20 h-full w-full object-cover"
+      />
+      <div class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(9,9,11,0.95),rgba(24,24,27,0.76)_42%,rgba(127,29,29,0.35)),linear-gradient(0deg,rgba(9,9,11,1),rgba(9,9,11,0.18)_46%)]"></div>
+
+      <div class="mx-auto grid min-h-[calc(92svh-5rem)] max-w-7xl items-center gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[0.9fr_1.1fr]">
+        <div
+          class="max-w-xl"
+          x-data="{ shown: false }"
+          x-intersect.once="shown = true"
+          :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+        >
+          <p class="mb-5 text-sm font-bold uppercase tracking-[0.32em] text-red-300">Athlete Representation</p>
+          <h1 class="text-5xl font-black uppercase leading-[0.92] tracking-normal text-white sm:text-6xl lg:text-7xl">
+            Varsity Management
+          </h1>
+          <p class="mt-7 max-w-lg text-lg leading-8 text-zinc-200">
+            From start to finish, Varsity Management equips athletes with every tool to succeed at every level.
+          </p>
+          <div class="mt-9 flex flex-wrap gap-4">
+            <a href="#who-we-are" class="bg-red-700 px-6 py-4 text-sm font-bold uppercase tracking-[0.18em] text-white shadow-xl shadow-red-950/30 transition hover:bg-red-600">
+              Learn More
+            </a>
+            <a href="#athletes" class="px-6 py-4 text-sm font-bold uppercase tracking-[0.18em] text-white ring-1 ring-white/25 transition hover:bg-white hover:text-zinc-950">
+              View Athletes
+            </a>
+          </div>
+        </div>
+
+        <div class="hidden justify-center lg:flex">
+          <Image src={logo} alt="Varsity Management shield logo" width={430} height={430} class="w-full max-w-sm object-contain drop-shadow-[0_24px_42px_rgba(0,0,0,0.55)]" />
+        </div>
+      </div>
+    </section>
+
+    <section id="who-we-are" class="bg-white px-5 py-20 text-zinc-950 sm:px-8 lg:py-28">
+      <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.72fr_1fr] lg:items-center">
+        <div>
+          <p class="text-sm font-bold uppercase tracking-[0.32em] text-red-700">Who We Are</p>
+          <h2 class="mt-4 text-4xl font-black uppercase leading-tight tracking-normal sm:text-5xl">
+            Built for the next generation of athletes.
+          </h2>
+        </div>
+        <p class="max-w-3xl text-lg leading-9 text-zinc-600">
+          With proven success at the highest levels of both sports and business, Varsity Management brings unmatched expertise to developing the next generation of athletes. We believe every young athlete deserves more than recognition for their talent or who they are today. They need a team that will guide them toward who they want to become, and reveal the potential they may not yet even see within themselves.
+        </p>
+      </div>
+    </section>
+
+    <section id="athletes" class="bg-zinc-100 px-5 py-20 text-zinc-950 sm:px-8 lg:py-28">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-12 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+          <div>
+            <p class="text-sm font-bold uppercase tracking-[0.32em] text-red-700">Athletes</p>
+            <h2 class="mt-4 text-4xl font-black uppercase tracking-normal sm:text-5xl">Featured Roster</h2>
+          </div>
+          <p class="max-w-xl text-base leading-7 text-zinc-600">
+            Profiles shaped around performance, recruitment, marketability, and the next opportunity.
+          </p>
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {athletes.map((athlete, index) => (
+            <article
+              class="group overflow-hidden bg-white shadow-xl shadow-zinc-200/80"
+              x-data="{ shown: false }"
+              x-intersect.once="shown = true"
+              :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+              style={`transition-delay: ${index * 55}ms`}
+            >
+              <div class="relative aspect-[4/3] overflow-hidden bg-zinc-900">
+                <Image
+                  src={index % 2 === 0 ? servicesFootball : heroFootball}
+                  alt={`${athlete.name} athlete profile background`}
+                  widths={[360, 520, 760]}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  class="h-full w-full object-cover opacity-80 transition duration-500 group-hover:scale-105"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+                <div class="absolute bottom-5 left-5 right-5">
+                  <p class="text-xs font-bold uppercase tracking-[0.25em] text-red-300">{athlete.sport}</p>
+                  <h3 class="mt-2 text-2xl font-black uppercase text-white">{athlete.name}</h3>
+                </div>
+              </div>
+              <div class="p-6">
+                <p class="font-semibold text-zinc-900">{athlete.role}</p>
+                <p class="mt-2 text-sm uppercase tracking-[0.12em] text-zinc-500">{athlete.meta}</p>
+                <div class="mt-5 flex flex-wrap gap-2">
+                  {athlete.honors.map((honor) => (
+                    <span class="inline-flex items-center gap-2 bg-zinc-100 px-3 py-2 text-xs font-bold uppercase tracking-[0.12em] text-zinc-700">
+                      <Award size={14} class="text-red-700" /> {honor}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="relative isolate overflow-hidden bg-zinc-950 px-5 py-20 sm:px-8 lg:py-28">
+      <Image
+        src={servicesFootball}
+        alt="Football athlete preparing for competition"
+        widths={[640, 960, 1280]}
+        sizes="100vw"
+        class="absolute inset-0 -z-20 h-full w-full object-cover opacity-35"
+      />
+      <div class="absolute inset-0 -z-10 bg-zinc-950/78"></div>
+      <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+        <div>
+          <p class="text-sm font-bold uppercase tracking-[0.32em] text-red-300">Our Services</p>
+          <h2 class="mt-4 text-4xl font-black uppercase leading-tight tracking-normal text-white sm:text-5xl">
+            Talent meets strategic opportunity.
+          </h2>
+          <p class="mt-6 text-lg leading-8 text-zinc-300">
+            Varsity Management is the intersection of athletic talent and strategic opportunity; combining branding, NIL management, recruiting, and financial growth to empower athletes to perform and prosper without limits.
+          </p>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          {services.map((service) => {
+            const Icon = service.icon;
+            return (
+              <article class="bg-white/9 p-6 shadow-xl shadow-black/20 ring-1 ring-white/10 backdrop-blur">
+                <Icon class="text-red-300" size={30} />
+                <h3 class="mt-5 text-xl font-black uppercase tracking-normal text-white">{service.title}</h3>
+                <p class="mt-3 text-sm leading-6 text-zinc-300">{service.text}</p>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <section id="team" class="relative isolate min-h-[560px] overflow-hidden px-5 py-24 sm:px-8">
+      <Image
+        src={quoteAthlete}
+        alt="Athlete crouched in dramatic training light"
+        widths={[640, 960, 1280, 1600]}
+        sizes="100vw"
+        class="absolute inset-0 -z-20 h-full w-full object-cover"
+      />
+      <div class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(9,9,11,0.9),rgba(9,9,11,0.46),rgba(127,29,29,0.45))]"></div>
+      <div class="mx-auto flex min-h-[380px] max-w-7xl items-center">
+        <blockquote class="max-w-2xl">
+          <ShieldCheck class="mb-8 text-red-300" size={42} />
+          <p class="text-3xl font-black uppercase leading-tight tracking-normal text-white sm:text-5xl">
+            "Never say never, because limits, like fears, are often just an illusion."
+          </p>
+          <footer class="mt-7 text-sm font-bold uppercase tracking-[0.28em] text-red-200">Michael Jordan</footer>
+        </blockquote>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

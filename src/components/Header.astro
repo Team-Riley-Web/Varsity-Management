@@ -1,0 +1,47 @@
+---
+import { Menu } from '@lucide/astro';
+import logo from '../assets/images/vm-logo.png';
+import { Image } from 'astro:assets';
+
+const navItems = [
+  { label: 'Who We Are', href: '#who-we-are' },
+  { label: 'Our Team', href: '#team' },
+  { label: 'Athletes', href: '#athletes' },
+  { label: 'Services', href: '#services' },
+  { label: 'Contact', href: '#contact' },
+];
+---
+
+<header
+  class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-zinc-950/85 text-white shadow-2xl shadow-black/20 backdrop-blur"
+>
+  <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
+    <a href="/" class="flex items-center gap-3" aria-label="Varsity Management home">
+      <Image src={logo} alt="Varsity Management crest logo" width={54} height={54} class="h-12 w-12 object-contain" />
+      <span class="hidden text-sm font-semibold uppercase tracking-[0.28em] text-zinc-100 sm:block">
+        Varsity Management
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-8 text-xs font-semibold uppercase tracking-[0.22em] text-zinc-200 lg:flex">
+      {navItems.map((item) => (
+        <a class="transition hover:text-red-400" href={item.href}>{item.label}</a>
+      ))}
+    </nav>
+
+    <a
+      href="#contact"
+      class="hidden bg-red-700 px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-lg shadow-red-950/30 transition hover:bg-red-600 md:inline-flex"
+    >
+      Connect
+    </a>
+
+    <button
+      class="inline-flex h-11 w-11 items-center justify-center bg-white/10 text-white ring-1 ring-white/15 lg:hidden"
+      type="button"
+      aria-label="Open navigation"
+    >
+      <Menu size={22} />
+    </button>
+  </div>
+</header>
