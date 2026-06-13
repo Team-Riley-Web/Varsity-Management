@@ -261,7 +261,11 @@ const services = [
       </div>
     </section>
 
-    <section id="athletes" class="scroll-mt-[76px] bg-zinc-100 px-5 py-[clamp(72px,10vw,132px)] text-zinc-950 sm:px-8 lg:px-16">
+    <section
+      id="athletes"
+      x-data={`{ visibleAthletes: 3, athleteTotal: ${athletes.length} }`}
+      class="scroll-mt-[76px] bg-zinc-100 px-5 py-[clamp(72px,10vw,132px)] text-zinc-950 sm:px-8 lg:px-16"
+    >
       <div class="mx-auto max-w-7xl">
         <div x-intersect.once="$el.classList.add('is-shown')" class:list={[reveal, "mb-[clamp(40px,5vw,64px)] flex flex-wrap items-end justify-between gap-8"]}>
           <div>
@@ -278,6 +282,7 @@ const services = [
               target="_blank"
               rel="noreferrer"
               x-intersect.once="$el.classList.add('is-shown')"
+              x-bind:class={`{ 'max-sm:hidden': ${index} >= visibleAthletes }`}
               class:list={[reveal, "reveal-card group flex flex-col border border-zinc-950/10 bg-white text-inherit no-underline shadow-[0_18px_50px_rgba(9,9,11,0.04)] transition-[opacity,transform,filter,box-shadow,border-color] hover:border-red-700/35 hover:shadow-[0_24px_70px_rgba(9,9,11,0.12)]"]}
               style={`transition-delay: ${(index % 3) * 95}ms`}
             >
@@ -328,6 +333,17 @@ const services = [
               </article>
             </a>
           ))}
+        </div>
+
+        <div class="mt-8 flex justify-center sm:hidden">
+          <button
+            type="button"
+            x-show="visibleAthletes < athleteTotal"
+            x-on:click="visibleAthletes = Math.min(visibleAthletes + 3, athleteTotal)"
+            class="inline-flex min-h-12 items-center justify-center bg-red-700 px-7 text-xs font-bold uppercase tracking-[0.18em] text-white transition hover:bg-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-700 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-100"
+          >
+            See More Athletes
+          </button>
         </div>
       </div>
     </section>
