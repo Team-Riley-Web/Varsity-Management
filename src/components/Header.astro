@@ -1,47 +1,70 @@
 ---
-import { Menu } from '@lucide/astro';
+import { Menu, X } from '@lucide/astro';
 import logo from '../assets/images/vm-logo.png';
 import { Image } from 'astro:assets';
 
 const navItems = [
   { label: 'Who We Are', href: '#who-we-are' },
-  { label: 'Our Team', href: '#team' },
   { label: 'Athletes', href: '#athletes' },
   { label: 'Services', href: '#services' },
+  { label: 'Our Team', href: '#team' },
   { label: 'Contact', href: '#contact' },
 ];
 ---
 
 <header
-  class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-zinc-950/85 text-white shadow-2xl shadow-black/20 backdrop-blur"
+  x-data="{ open: false }"
+  class="fixed inset-x-0 top-0 z-50 h-[76px] border-b border-white/10 bg-zinc-950/80 text-white backdrop-blur-[14px]"
 >
-  <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
+  <div class="mx-auto flex h-full max-w-7xl items-center justify-between gap-6 px-5 sm:px-8 lg:px-16">
     <a href="/" class="flex items-center gap-3" aria-label="Varsity Management home">
-      <Image src={logo} alt="Varsity Management crest logo" width={54} height={54} class="h-12 w-12 object-contain" />
-      <span class="hidden text-sm font-semibold uppercase tracking-[0.28em] text-zinc-100 sm:block">
+      <Image src={logo} alt="Varsity Management shield crest" class="block h-auto w-auto max-h-11 max-w-[140px] object-contain" />
+      <span class="hidden text-[17px] font-bold uppercase leading-none tracking-[0.18em] text-zinc-100 [font-family:'Avenir_Next_Condensed','Helvetica_Neue_Condensed','Arial_Narrow',sans-serif] sm:block">
         Varsity Management
       </span>
     </a>
 
-    <nav class="hidden items-center gap-8 text-xs font-semibold uppercase tracking-[0.22em] text-zinc-200 lg:flex">
+    <nav class="hidden items-center gap-[34px] text-[11px] font-bold uppercase tracking-[0.22em] text-zinc-400 lg:flex" aria-label="Primary">
       {navItems.map((item) => (
-        <a class="transition hover:text-red-400" href={item.href}>{item.label}</a>
+        <a class="py-3.5 transition hover:text-white" href={item.href}>{item.label}</a>
       ))}
     </nav>
 
     <a
       href="#contact"
-      class="hidden bg-red-700 px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-lg shadow-red-950/30 transition hover:bg-red-600 md:inline-flex"
+      class="hidden min-h-12 items-center justify-center bg-red-700 px-7 text-xs font-bold uppercase tracking-[0.18em] text-white transition hover:bg-red-600 lg:inline-flex"
     >
       Connect
     </a>
 
     <button
-      class="inline-flex h-11 w-11 items-center justify-center bg-white/10 text-white ring-1 ring-white/15 lg:hidden"
+      class="inline-flex h-12 w-12 items-center justify-center border border-white/10 bg-white/[0.08] text-white lg:hidden"
       type="button"
-      aria-label="Open navigation"
+      aria-label="Toggle navigation"
+      :aria-expanded="String(open)"
+      @click="open = !open"
     >
-      <Menu size={22} />
+      <Menu x-show="!open" size={22} />
+      <X x-show="open" size={22} />
     </button>
+  </div>
+
+  <div
+    x-cloak
+    x-show="open"
+    x-transition.opacity
+    class="fixed inset-x-0 top-[76px] z-40 border-b border-white/10 bg-zinc-950/95 px-5 pb-7 pt-3 backdrop-blur-[14px] sm:px-8 lg:hidden"
+  >
+    <nav aria-label="Mobile primary">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="flex min-h-[52px] items-center border-b border-white/10 text-2xl font-bold uppercase tracking-[0.06em] [font-family:'Avenir_Next_Condensed','Helvetica_Neue_Condensed','Arial_Narrow',sans-serif] last:border-b-0"
+          @click="open = false"
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
   </div>
 </header>

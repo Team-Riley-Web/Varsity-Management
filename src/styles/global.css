@@ -2,6 +2,10 @@
 @config "../../tailwind.config.cjs";
 
 @layer base {
+  [x-cloak] {
+    display: none !important;
+  }
+
   html {
     scroll-behavior: smooth;
   }
@@ -17,5 +21,52 @@
 
   * {
     box-sizing: border-box;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@layer utilities {
+  .reveal-luxury {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translate3d(0, 42px, 0) scale(0.985);
+    clip-path: inset(0 0 14% 0);
+  }
+
+  .reveal-luxury.reveal-left {
+    transform: translate3d(-42px, 18px, 0) scale(0.99);
+    clip-path: inset(0 12% 0 0);
+  }
+
+  .reveal-luxury.reveal-right {
+    transform: translate3d(42px, 18px, 0) scale(0.99);
+    clip-path: inset(0 0 0 12%);
+  }
+
+  .reveal-luxury.reveal-card {
+    transform: translate3d(0, 56px, 0) scale(0.975);
+    filter: blur(3px);
+    clip-path: inset(0 0 8% 0);
+  }
+
+  .reveal-luxury.is-shown {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0) scale(1);
+    clip-path: inset(0 0 0 0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-luxury {
+      opacity: 1;
+      filter: none;
+      transform: none;
+      clip-path: none;
+    }
   }
 }

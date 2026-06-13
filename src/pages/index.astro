@@ -1,232 +1,388 @@
 ---
-import { Award, BadgeDollarSign, Dumbbell, Megaphone, ShieldCheck, TrendingUp, Users } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import heroFootball from '../assets/images/hero-football.jpg';
-import logo from '../assets/images/vm-logo.png';
 import quoteAthlete from '../assets/images/quote-athlete.jpg';
 import servicesFootball from '../assets/images/services-football.jpg';
+import codyCorales from '../assets/images/athletes/cody-corales.png';
+import dajohnHoward from '../assets/images/athletes/dajohn-howard.jpg';
+import dejayPerkins from '../assets/images/athletes/dejay-perkins.png';
+import dylanHenry from '../assets/images/athletes/dylan-henry.png';
+import ethanKimmie from '../assets/images/athletes/ethan-kimmie.png';
+import ianGray from '../assets/images/athletes/ian-gray.jpeg';
+import jordanCollins from '../assets/images/athletes/jordan-collins.jpg';
+import kendrickJoseph from '../assets/images/athletes/kendrick-joseph.jpg';
+import micahGifford from '../assets/images/athletes/micah-gifford.png';
+import tristonNaquin from '../assets/images/athletes/triston-naquin.png';
+import tuckerWade from '../assets/images/athletes/tucker-wade.png';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const display = "[font-family:'Avenir_Next_Condensed','Helvetica_Neue_Condensed','Arial_Narrow','Roboto_Condensed',sans-serif]";
+const reveal = "reveal-luxury will-change-transform transition-[opacity,transform,filter,clip-path] duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none";
+
+const facts = [
+  ['Discipline', 'Football · Basketball'],
+  ['Service Lines', '05'],
+  ['Featured Roster', '11 Athletes'],
+  ['Based In', 'Mandeville, LA'],
+];
 
 const athletes = [
   {
-    name: 'Cody Corales',
+    name: 'Ethan Kimmie',
     sport: 'Football',
-    role: 'Halfback - St. Pauls High',
-    meta: '2026 / 5\'11 190 lbs.',
-    honors: ['All-State', 'Parish MVP', 'District MVP'],
+    role: 'Wide Receiver - Zachary High School',
+    url: 'https://www.varsitymanagementllc.com/blank-11',
+    stats: [['CLASS', '2027'], ['HT', '6\'4"'], ['WT', '190']],
+    honors: ['All-District Basketball', 'Louisiana Freshman Showcase 1st Team', 'Top multi-sport prospect'],
+    offers: ['Texas A&M', 'Kentucky', 'Arkansas', 'Syracuse', 'UNLV', 'LA Tech', 'South Alabama', 'USM', 'Florida State', 'West Virginia', 'Grambling State', 'Nicholls State', 'McNeese State', 'ULL'],
+    bio: 'A 6’4” playmaker with rare length, vertical-threat ability, contested-catch skills, and two-way versatility.',
+    image: ethanKimmie,
   },
   {
-    name: 'Micah Gifford',
-    sport: 'Football',
-    role: 'Safety - Baylor',
-    meta: '6\'3 207 lbs.',
-    honors: ['Defensive back', 'College athlete'],
+    name: 'Triston Naquin',
+    sport: 'Basketball',
+    role: 'Forward - Archbishop Shaw High School',
+    url: 'https://www.varsitymanagementllc.com/blank-8',
+    stats: [['CLASS', '2028'], ['HT', '6\'7"'], ['WT', '210']],
+    honors: ['D1 Super Sleeper', '4 Star ESPN', '#3 in Louisiana Class of 2027'],
+    offers: ['ASU', 'UNLV', 'ULL', 'USF', 'USM'],
+    bio: 'A high-upside forward with size, versatility, rebounding presence, shot-blocking impact, and next-level potential.',
+    image: tristonNaquin,
   },
   {
-    name: 'Dylan Henry',
+    name: 'Kendrick Joseph Jr.',
     sport: 'Football',
-    role: 'Safety - Mandeville',
-    meta: '2027 / 5\'11 175 lbs.',
-    honors: ['All-State', 'All-Parish', 'All-District'],
-  },
-  {
-    name: 'Jordan Collins',
-    sport: 'Football',
-    role: 'OL - Destrehan High School',
-    meta: '6\'4 305 lbs.',
-    honors: ['Offensive line', 'Prospect development'],
+    role: 'Defensive Back - St. James High School',
+    url: 'https://www.varsitymanagementllc.com/blank-9',
+    stats: [['CLASS', '2027'], ['HT', '6\'0"'], ['WT', '170']],
+    honors: ['#6 ATH in Prep Redzone LA'],
+    offers: ['ODU committed'],
+    bio: 'A versatile two-way athlete with physicality, secondary instincts, running back production, and rising Louisiana profile.',
+    image: kendrickJoseph,
   },
   {
     name: 'Tucker Wade',
     sport: 'Football',
     role: 'Quarterback - Orange Beach High',
-    meta: '2029 / 6\'0 180 lbs.',
+    url: 'https://www.varsitymanagementllc.com/blank-5',
+    stats: [['CLASS', '2029'], ['HT', '6\'0"'], ['WT', '180'], ['40', '5.4']],
     honors: ['All Freshman First Team'],
+    offers: [],
+    bio: 'A young signal-caller with early varsity production, command, accuracy, and dual-threat development upside.',
+    image: tuckerWade,
   },
   {
-    name: 'Triston Naquin',
-    sport: 'Basketball',
-    role: 'Forward - Archbishop Shaw',
-    meta: '2027 / 6\'6 210 lbs.',
-    honors: ['D1 Super Sleeper', 'Offers from ASU', '4 Star ESPN'],
+    name: 'Dylan Henry',
+    sport: 'Football',
+    role: 'Defensive Back - Mandeville High School',
+    url: 'https://www.varsitymanagementllc.com/blank-6',
+    stats: [['CLASS', '2027'], ['HT', '5\'11"'], ['WT', '170'], ['40', '4.52']],
+    honors: ['All Freshman First Team'],
+    offers: ['ODU', 'Memphis', 'McNeese', 'South Alabama committed'],
+    bio: 'A tough, instinctive defensive back with turnover production, pass breakups, and two-way athletic ability.',
+    image: dylanHenry,
+  },
+  {
+    name: 'Cody Corales',
+    sport: 'Football',
+    role: 'Halfback - St. Pauls High',
+    url: 'https://www.varsitymanagementllc.com/blank-7',
+    stats: [['CLASS', '2026'], ['HT', '5\'11"'], ['WT', '190']],
+    honors: ['All-State', 'Parish MVP', 'District MVP'],
+    offers: ['SELU'],
+    bio: 'A physical multi-sport back with strength, balance, downhill running style, and a team-first competitive edge.',
+    image: codyCorales,
+  },
+  {
+    name: 'Jordan Collins',
+    sport: 'Football',
+    role: 'Offensive Lineman - Destrehan High School',
+    url: 'https://www.varsitymanagementllc.com/blank-10',
+    stats: [['CLASS', '2028'], ['HT', '6\'4"'], ['WT', '305']],
+    honors: ['Top Offensive Lineman class of 2028'],
+    offers: ['Troy University', 'AAMU'],
+    bio: 'A developing offensive line prospect growing inside one of Louisiana’s most competitive football programs.',
+    image: jordanCollins,
+  },
+  {
+    name: 'Ian Gray',
+    sport: 'Football',
+    role: 'Middle Linebacker - Edna Karr High School',
+    url: 'https://www.varsitymanagementllc.com/blank-12',
+    stats: [['HT', '6\'3"'], ['WT', '207']],
+    honors: ['Physical downhill defender', 'Multiple linebacker spots'],
+    offers: ['OSU'],
+    bio: 'A high-motor linebacker with strong pursuit skills, tackling ability, contact confidence, and positional versatility.',
+    image: ianGray,
+  },
+  {
+    name: "Da'John Howard",
+    sport: 'Football',
+    role: 'Quarterback - Salmen High School',
+    url: 'https://www.varsitymanagementllc.com/blank-13',
+    stats: [['HT', '6\'3"'], ['WT', '175']],
+    honors: ['All State 5A QB', '1st Team All District', 'District 7-5A'],
+    offers: [],
+    bio: 'An athletic playmaker with quick closing speed, natural pursuit instincts, energy, speed, and upside.',
+    image: dajohnHoward,
+  },
+  {
+    name: 'Micah Gifford',
+    sport: 'Football',
+    role: 'Safety - Baylor University',
+    url: 'https://www.varsitymanagementllc.com/blank-4',
+    stats: [['HT', '6\'3"'], ['WT', '207'], ['110H', '14.67'], ['400M', '48']],
+    honors: ['2025 All-Big 12 First Team Specialist', 'Consensus 3 Star Recruit', 'Texas 5A Track Regional Qualifier'],
+    offers: [],
+    bio: 'A long, athletic defensive back with size, speed, physicality, coverage range, and proven Big 12 production.',
+    image: micahGifford,
+  },
+  {
+    name: 'Dejay Perkins',
+    sport: 'Football',
+    role: 'Cornerback - McComb High School',
+    url: 'https://www.varsitymanagementllc.com/blank-14',
+    stats: [['CLASS', '2027'], ['HT', '5\'10"'], ['WT', '170']],
+    honors: ['Mississippi 4A First-Team All-State DB', 'Top 10 in Mississippi 4A category', 'Top 2 in Region 7 4A category'],
+    offers: [],
+    bio: 'A rising two-way playmaker with receiving production, defensive ball skills, speed, versatility, and regional upside.',
+    image: dejayPerkins,
   },
 ];
 
 const services = [
-  { title: 'Branding', icon: Megaphone, text: 'Build a public identity that is clear, credible, and positioned for opportunity.' },
-  { title: 'Development', icon: Dumbbell, text: 'Shape athletic, personal, and professional growth around long-term goals.' },
-  { title: 'Recruiting', icon: Users, text: 'Connect talent with the right programs, coaches, and next-step pathways.' },
-  { title: 'Finance', icon: TrendingUp, text: 'Give athletes practical guidance for managing new earning potential.' },
-  { title: 'NIL', icon: BadgeDollarSign, text: 'Create and manage name, image, and likeness opportunities with discipline.' },
+  ['Branding', 'Build a public identity that is clear, credible, and positioned for opportunity.'],
+  ['Development', 'Shape athletic, personal, and professional growth around long-term goals.'],
+  ['Recruiting', 'Connect talent with the right programs, coaches, and next-step pathways.'],
+  ['Finance', 'Give athletes practical guidance for managing new earning potential.'],
+  ['NIL', 'Create and manage name, image, and likeness opportunities with discipline.'],
 ];
 ---
 
 <BaseLayout
-  title="Varsity Management LLC"
+  title="Varsity Management - Athlete Representation"
   description="Varsity Management equips athletes with branding, NIL management, recruiting, development, and financial growth support."
 >
   <Header />
-  <main class="bg-zinc-950 text-zinc-100">
-    <section class="relative isolate min-h-[92svh] overflow-hidden pt-20">
+  <main id="top" x-data="{}" class="bg-zinc-950 text-white">
+    <section class="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden pt-[116px]">
       <Image
         src={heroFootball}
-        alt="Close-up of a football player resting on a helmet"
+        alt="Football player at rest, helmet in hand, under stadium light"
         widths={[640, 960, 1280, 1600]}
         sizes="100vw"
         priority
-        class="absolute inset-0 -z-20 h-full w-full object-cover"
+        class="absolute inset-0 -z-20 h-full w-full object-cover object-[70%_center]"
       />
-      <div class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(9,9,11,0.95),rgba(24,24,27,0.76)_42%,rgba(127,29,29,0.35)),linear-gradient(0deg,rgba(9,9,11,1),rgba(9,9,11,0.18)_46%)]"></div>
+      <div class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(9,9,11,0.96),rgba(24,24,27,0.72)_46%,rgba(127,29,29,0.38)),linear-gradient(0deg,rgb(9,9,11)_0%,rgba(9,9,11,0.15)_48%)]"></div>
 
-      <div class="mx-auto grid min-h-[calc(92svh-5rem)] max-w-7xl items-center gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[0.9fr_1.1fr]">
-        <div
-          class="max-w-xl"
-          x-data="{ shown: false }"
-          x-intersect.once="shown = true"
-          :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+      <div class="mx-auto w-full max-w-7xl px-5 pb-[clamp(40px,7vh,96px)] sm:px-8 lg:px-16">
+        <p
+          x-intersect.once="$el.classList.add('is-shown')"
+          class:list={[reveal, "flex items-center gap-3.5 text-xs font-bold uppercase tracking-[0.32em] text-red-200 before:h-0.5 before:w-7 before:bg-red-700"]}
         >
-          <p class="mb-5 text-sm font-bold uppercase tracking-[0.32em] text-red-300">Athlete Representation</p>
-          <h1 class="text-5xl font-black uppercase leading-[0.92] tracking-normal text-white sm:text-6xl lg:text-7xl">
-            Varsity Management
-          </h1>
-          <p class="mt-7 max-w-lg text-lg leading-8 text-zinc-200">
-            From start to finish, Varsity Management equips athletes with every tool to succeed at every level.
-          </p>
-          <div class="mt-9 flex flex-wrap gap-4">
-            <a href="#who-we-are" class="bg-red-700 px-6 py-4 text-sm font-bold uppercase tracking-[0.18em] text-white shadow-xl shadow-red-950/30 transition hover:bg-red-600">
-              Learn More
-            </a>
-            <a href="#athletes" class="px-6 py-4 text-sm font-bold uppercase tracking-[0.18em] text-white ring-1 ring-white/25 transition hover:bg-white hover:text-zinc-950">
-              View Athletes
-            </a>
-          </div>
+          Athlete Representation
+        </p>
+        <h1
+          x-intersect.once="$el.classList.add('is-shown')"
+          class:list={[reveal, display, "mt-5 -ml-[0.03em] text-[clamp(48px,11.5vw,164px)] font-black uppercase leading-[0.92] tracking-[0.005em] text-white delay-100"]}
+        >
+          Varsity
+          <span class="block text-transparent [-webkit-text-stroke:1.5px_rgba(255,255,255,0.85)]">Management</span>
+        </h1>
+        <p
+          x-intersect.once="$el.classList.add('is-shown')"
+          class:list={[reveal, "mt-6 max-w-[460px] text-[clamp(16px,1.6vw,19px)] leading-[1.7] text-zinc-300 delay-200"]}
+        >
+          From start to finish - every tool an athlete needs to succeed at every level.
+        </p>
+        <div
+          x-intersect.once="$el.classList.add('is-shown')"
+          class:list={[reveal, "mt-8 flex flex-wrap gap-3.5 delay-300"]}
+        >
+          <a href="#athletes" class="inline-flex min-h-12 items-center justify-center bg-red-700 px-7 text-xs font-bold uppercase tracking-[0.18em] text-white transition hover:bg-red-600">
+            View Athletes
+          </a>
+          <a href="#who-we-are" class="inline-flex min-h-12 items-center justify-center px-7 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.3)] transition hover:bg-white hover:text-zinc-950 hover:shadow-none">
+            Learn More
+          </a>
         </div>
+      </div>
 
-        <div class="hidden justify-center lg:flex">
-          <Image src={logo} alt="Varsity Management shield logo" width={430} height={430} class="w-full max-w-sm object-contain drop-shadow-[0_24px_42px_rgba(0,0,0,0.55)]" />
-        </div>
+      <div class="border-t border-white/10 bg-zinc-950/60 backdrop-blur">
+        <dl class="mx-auto grid max-w-7xl grid-cols-2 px-5 sm:px-8 lg:grid-cols-4 lg:px-16">
+          {facts.map(([label, value], index) => (
+            <div
+              x-intersect.once="$el.classList.add('is-shown')"
+              class:list={[reveal, "py-4 pr-6 lg:py-5", index % 2 === 1 ? "border-l border-white/10 pl-6 lg:pl-6" : "", index > 0 ? "lg:border-l lg:border-white/10 lg:pl-6" : ""]}
+              style={`transition-delay: ${260 + index * 80}ms`}
+            >
+              <dt class="text-[10px] font-bold uppercase tracking-[0.26em] text-zinc-400">{label}</dt>
+              <dd class="mt-1.5 font-mono text-[15px] tracking-[0.04em] text-white">{value}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
 
-    <section id="who-we-are" class="bg-white px-5 py-20 text-zinc-950 sm:px-8 lg:py-28">
-      <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.72fr_1fr] lg:items-center">
-        <div>
-          <p class="text-sm font-bold uppercase tracking-[0.32em] text-red-700">Who We Are</p>
-          <h2 class="mt-4 text-4xl font-black uppercase leading-tight tracking-normal sm:text-5xl">
+    <section id="who-we-are" class="scroll-mt-[76px] bg-zinc-50 px-5 py-[clamp(72px,10vw,132px)] text-zinc-950 sm:px-8 lg:px-16">
+      <div class="mx-auto grid max-w-7xl gap-[clamp(32px,5vw,80px)] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+        <div x-intersect.once="$el.classList.add('is-shown')" class:list={[reveal, "reveal-left"]}>
+          <p class="flex items-center gap-3.5 text-xs font-bold uppercase tracking-[0.32em] text-red-700 before:h-0.5 before:w-7 before:bg-red-700">Who We Are</p>
+          <h2 class:list={[display, "mt-5 max-w-[12ch] text-[clamp(40px,5.6vw,76px)] font-black uppercase leading-[0.92] tracking-[0.005em] text-zinc-950"]}>
             Built for the next generation of athletes.
           </h2>
         </div>
-        <p class="max-w-3xl text-lg leading-9 text-zinc-600">
-          With proven success at the highest levels of both sports and business, Varsity Management brings unmatched expertise to developing the next generation of athletes. We believe every young athlete deserves more than recognition for their talent or who they are today. They need a team that will guide them toward who they want to become, and reveal the potential they may not yet even see within themselves.
-        </p>
+        <div x-intersect.once="$el.classList.add('is-shown')" class:list={[reveal, "reveal-right delay-150"]}>
+          <p class="max-w-[60ch] text-[clamp(17px,1.8vw,21px)] leading-[1.85] text-zinc-600">
+            With proven success at the highest levels of both sports and business, Varsity Management brings unmatched expertise to developing the next generation of athletes.
+            <strong class="font-semibold text-zinc-950">We believe every young athlete deserves more than recognition for who they are today.</strong>
+            They need a team that will guide them toward who they want to become - and reveal the potential they may not yet even see within themselves.
+          </p>
+          <div class="mt-9 flex flex-wrap gap-10 border-t border-zinc-950/10 pt-6">
+            {[
+              ['Approach', 'Start to finish'],
+              ['Focus', 'Long-term growth'],
+              ['Background', 'Sports x Business'],
+            ].map(([label, value]) => (
+              <div
+                x-intersect.once="$el.classList.add('is-shown')"
+                class:list={[reveal, "reveal-card"]}
+                style={`transition-delay: ${120 + [['Approach', 'Start to finish'], ['Focus', 'Long-term growth'], ['Background', 'Sports x Business']].findIndex(([item]) => item === label) * 90}ms`}
+              >
+                <span class="block text-[10px] font-bold uppercase tracking-[0.26em] text-zinc-500">{label}</span>
+                <span class="mt-1.5 block font-mono text-[15px] text-zinc-950">{value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="athletes" class="bg-zinc-100 px-5 py-20 text-zinc-950 sm:px-8 lg:py-28">
+    <section id="athletes" class="scroll-mt-[76px] bg-zinc-100 px-5 py-[clamp(72px,10vw,132px)] text-zinc-950 sm:px-8 lg:px-16">
       <div class="mx-auto max-w-7xl">
-        <div class="mb-12 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+        <div x-intersect.once="$el.classList.add('is-shown')" class:list={[reveal, "mb-[clamp(40px,5vw,64px)] flex flex-wrap items-end justify-between gap-8"]}>
           <div>
-            <p class="text-sm font-bold uppercase tracking-[0.32em] text-red-700">Athletes</p>
-            <h2 class="mt-4 text-4xl font-black uppercase tracking-normal sm:text-5xl">Featured Roster</h2>
+            <p class="flex items-center gap-3.5 text-xs font-bold uppercase tracking-[0.32em] text-red-700 before:h-0.5 before:w-7 before:bg-red-700">Athletes</p>
+            <h2 class:list={[display, "mt-5 text-[clamp(40px,5.6vw,76px)] font-black uppercase leading-[0.92] tracking-[0.005em] text-zinc-950"]}>Featured Roster</h2>
           </div>
-          <p class="max-w-xl text-base leading-7 text-zinc-600">
-            Profiles shaped around performance, recruitment, marketability, and the next opportunity.
-          </p>
+          <p class="max-w-[44ch] text-zinc-600">Profiles shaped around performance, recruitment, marketability, and the next opportunity.</p>
         </div>
 
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid gap-[clamp(16px,2vw,24px)] sm:grid-cols-2 lg:grid-cols-3">
           {athletes.map((athlete, index) => (
-            <article
-              class="group overflow-hidden bg-white shadow-xl shadow-zinc-200/80"
-              x-data="{ shown: false }"
-              x-intersect.once="shown = true"
-              :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
-              style={`transition-delay: ${index * 55}ms`}
+            <a
+              href={athlete.url}
+              target="_blank"
+              rel="noreferrer"
+              x-intersect.once="$el.classList.add('is-shown')"
+              class:list={[reveal, "reveal-card group flex flex-col border border-zinc-950/10 bg-white text-inherit no-underline shadow-[0_18px_50px_rgba(9,9,11,0.04)] transition-[opacity,transform,filter,box-shadow,border-color] hover:border-red-700/35 hover:shadow-[0_24px_70px_rgba(9,9,11,0.12)]"]}
+              style={`transition-delay: ${(index % 3) * 95}ms`}
             >
-              <div class="relative aspect-[4/3] overflow-hidden bg-zinc-900">
+              <article class="flex h-full flex-col">
+              <div class="relative aspect-[4/4.7] overflow-hidden bg-zinc-950 after:absolute after:inset-0 after:bg-gradient-to-t after:from-black/95 after:via-black/20 after:to-transparent">
                 <Image
-                  src={index % 2 === 0 ? servicesFootball : heroFootball}
-                  alt={`${athlete.name} athlete profile background`}
-                  widths={[360, 520, 760]}
+                  src={athlete.image}
+                  alt={`${athlete.name} athlete portrait`}
+                  widths={[360, 520, 760, 980]}
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  class="h-full w-full object-cover opacity-80 transition duration-500 group-hover:scale-105"
+                  class="h-full w-full object-cover object-top opacity-90 transition duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
                 />
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
-                <div class="absolute bottom-5 left-5 right-5">
-                  <p class="text-xs font-bold uppercase tracking-[0.25em] text-red-300">{athlete.sport}</p>
-                  <h3 class="mt-2 text-2xl font-black uppercase text-white">{athlete.name}</h3>
+                <span class:list={[display, "absolute right-4 top-3.5 z-10 text-[44px] font-black leading-none text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.55)]"]}>
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <div class="absolute bottom-4 left-5 right-5 z-10">
+                  <p class="text-[10px] font-bold uppercase tracking-[0.26em] text-red-200">{athlete.sport}</p>
+                  <h3 class:list={[display, "mt-1.5 text-[clamp(26px,2.4vw,32px)] font-black uppercase leading-none tracking-[0.005em] text-white"]}>{athlete.name}</h3>
                 </div>
               </div>
-              <div class="p-6">
-                <p class="font-semibold text-zinc-900">{athlete.role}</p>
-                <p class="mt-2 text-sm uppercase tracking-[0.12em] text-zinc-500">{athlete.meta}</p>
-                <div class="mt-5 flex flex-wrap gap-2">
-                  {athlete.honors.map((honor) => (
-                    <span class="inline-flex items-center gap-2 bg-zinc-100 px-3 py-2 text-xs font-bold uppercase tracking-[0.12em] text-zinc-700">
-                      <Award size={14} class="text-red-700" /> {honor}
-                    </span>
+              <div class="flex flex-1 flex-col px-5 py-5">
+                <p class="text-[15px] font-semibold text-zinc-950">{athlete.role}</p>
+                <div class="mt-3.5 flex flex-wrap gap-x-4 gap-y-1 border-y border-zinc-950/10 py-3">
+                  {athlete.stats.map(([label, value]) => (
+                    <span class="font-mono text-[12.5px] tracking-[0.06em] text-zinc-600">{label} <b class="font-semibold text-zinc-950">{value}</b></span>
                   ))}
                 </div>
+                <p class="mt-4 text-sm leading-6 text-zinc-600">{athlete.bio}</p>
+                {athlete.offers.length > 0 && (
+                  <div class="mt-4 border-t border-zinc-950/10 pt-3">
+                    <p class="text-[10px] font-bold uppercase tracking-[0.24em] text-red-700">Offers</p>
+                    <p class="mt-2 line-clamp-2 text-xs font-semibold uppercase leading-5 tracking-[0.08em] text-zinc-700">
+                      {athlete.offers.join(' · ')}
+                    </p>
+                  </div>
+                )}
+                <ul class="mt-3.5">
+                  {athlete.honors.map((honor) => (
+                    <li class="relative py-1 pl-4 text-xs font-semibold uppercase tracking-[0.1em] text-zinc-600 before:absolute before:left-0 before:top-1/2 before:h-0.5 before:w-2 before:-translate-y-1/2 before:bg-red-700">
+                      {honor}
+                    </li>
+                  ))}
+                </ul>
+                <span class="mt-auto inline-flex pt-5 text-[11px] font-bold uppercase tracking-[0.22em] text-red-700 transition group-hover:translate-x-1">
+                  View Profile
+                </span>
               </div>
-            </article>
+              </article>
+            </a>
           ))}
         </div>
       </div>
     </section>
 
-    <section id="services" class="relative isolate overflow-hidden bg-zinc-950 px-5 py-20 sm:px-8 lg:py-28">
-      <Image
-        src={servicesFootball}
-        alt="Football athlete preparing for competition"
-        widths={[640, 960, 1280]}
-        sizes="100vw"
-        class="absolute inset-0 -z-20 h-full w-full object-cover opacity-35"
-      />
-      <div class="absolute inset-0 -z-10 bg-zinc-950/78"></div>
-      <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-        <div>
-          <p class="text-sm font-bold uppercase tracking-[0.32em] text-red-300">Our Services</p>
-          <h2 class="mt-4 text-4xl font-black uppercase leading-tight tracking-normal text-white sm:text-5xl">
+    <div class="overflow-hidden whitespace-nowrap border-y border-white/10 bg-zinc-950 py-5" aria-hidden="true">
+      <div class:list={["inline-block animate-[marquee_28s_linear_infinite]", display]}>
+        {Array.from({ length: 4 }).map(() => (
+          <span class="pr-14 text-[clamp(34px,4.5vw,64px)] font-black uppercase leading-none text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.4)]">
+            Perform <i class="not-italic text-red-700 [-webkit-text-stroke:0]">&amp;</i> Prosper Without Limits
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <section id="services" class="relative isolate scroll-mt-[76px] overflow-hidden px-5 py-[clamp(72px,10vw,132px)] sm:px-8 lg:px-16">
+      <Image src={servicesFootball} alt="" widths={[640, 960, 1280]} sizes="100vw" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-30" />
+      <div class="absolute inset-0 -z-10 bg-zinc-950/80"></div>
+      <div class="mx-auto grid max-w-7xl gap-[clamp(40px,6vw,96px)] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+        <div x-intersect.once="$el.classList.add('is-shown')" class:list={[reveal, "reveal-left"]}>
+          <p class="flex items-center gap-3.5 text-xs font-bold uppercase tracking-[0.32em] text-red-200 before:h-0.5 before:w-7 before:bg-red-700">Our Services</p>
+          <h2 class:list={[display, "mt-5 max-w-[11ch] text-[clamp(40px,5.6vw,76px)] font-black uppercase leading-[0.92] tracking-[0.005em] text-white"]}>
             Talent meets strategic opportunity.
           </h2>
-          <p class="mt-6 text-lg leading-8 text-zinc-300">
-            Varsity Management is the intersection of athletic talent and strategic opportunity; combining branding, NIL management, recruiting, and financial growth to empower athletes to perform and prosper without limits.
+          <p class="mt-6 max-w-[46ch] text-zinc-400">
+            Varsity Management is the intersection of athletic talent and strategic opportunity - combining branding, NIL management, recruiting, and financial growth to empower athletes to perform and prosper without limits.
           </p>
         </div>
-
-        <div class="grid gap-4 sm:grid-cols-2">
-          {services.map((service) => {
-            const Icon = service.icon;
-            return (
-              <article class="bg-white/9 p-6 shadow-xl shadow-black/20 ring-1 ring-white/10 backdrop-blur">
-                <Icon class="text-red-300" size={30} />
-                <h3 class="mt-5 text-xl font-black uppercase tracking-normal text-white">{service.title}</h3>
-                <p class="mt-3 text-sm leading-6 text-zinc-300">{service.text}</p>
-              </article>
-            );
-          })}
-        </div>
+        <ol class="border-t border-white/10">
+          {services.map(([title, text], index) => (
+            <li
+              x-intersect.once="$el.classList.add('is-shown')"
+              class:list={[reveal, "reveal-right grid grid-cols-[48px_1fr] items-baseline gap-x-5 border-b border-white/10 py-6 transition-[opacity,transform,filter,clip-path,background-color] hover:bg-white/[0.045] sm:grid-cols-[72px_minmax(0,0.55fr)_minmax(0,1fr)] sm:pr-3"]}
+              style={`transition-delay: ${index * 80}ms`}
+            >
+              <span class="font-mono text-[13px] tracking-[0.08em] text-red-200">{String(index + 1).padStart(2, '0')}</span>
+              <h3 class:list={[display, "text-[clamp(24px,2.4vw,34px)] font-black uppercase leading-none text-white"]}>{title}</h3>
+              <p class="col-start-2 mt-3 text-[14.5px] leading-[1.7] text-zinc-400 sm:col-start-auto sm:mt-0">{text}</p>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
 
-    <section id="team" class="relative isolate min-h-[560px] overflow-hidden px-5 py-24 sm:px-8">
-      <Image
-        src={quoteAthlete}
-        alt="Athlete crouched in dramatic training light"
-        widths={[640, 960, 1280, 1600]}
-        sizes="100vw"
-        class="absolute inset-0 -z-20 h-full w-full object-cover"
-      />
-      <div class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(9,9,11,0.9),rgba(9,9,11,0.46),rgba(127,29,29,0.45))]"></div>
-      <div class="mx-auto flex min-h-[380px] max-w-7xl items-center">
-        <blockquote class="max-w-2xl">
-          <ShieldCheck class="mb-8 text-red-300" size={42} />
-          <p class="text-3xl font-black uppercase leading-tight tracking-normal text-white sm:text-5xl">
-            "Never say never, because limits, like fears, are often just an illusion."
+    <section id="team" class="relative isolate flex min-h-[72svh] scroll-mt-[76px] items-center overflow-hidden px-5 py-[clamp(72px,10vw,132px)] sm:px-8 lg:px-16">
+      <Image src={quoteAthlete} alt="Athlete crouched in dramatic training light" widths={[640, 960, 1280, 1600]} sizes="100vw" class="absolute inset-0 -z-20 h-full w-full object-cover object-[center_30%]" />
+      <div class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(9,9,11,0.92),rgba(9,9,11,0.5)_55%,rgba(127,29,29,0.45))]"></div>
+      <div class="mx-auto w-full max-w-7xl">
+        <blockquote x-intersect.once="$el.classList.add('is-shown')" class:list={[reveal, "reveal-left max-w-[760px]"]}>
+          <span aria-hidden="true" class:list={[display, "block h-12 text-[110px] font-black leading-[0.5] text-red-700"]}>"</span>
+          <p class:list={[display, "text-[clamp(32px,4.6vw,60px)] font-black uppercase leading-[0.92] tracking-[0.005em] text-white"]}>
+            Never say never, because limits, like fears, are often just an illusion.
           </p>
-          <footer class="mt-7 text-sm font-bold uppercase tracking-[0.28em] text-red-200">Michael Jordan</footer>
+          <footer class="mt-7 flex items-center gap-3.5 text-xs font-bold uppercase tracking-[0.3em] text-red-200 before:h-0.5 before:w-7 before:bg-red-700">
+            Michael Jordan
+          </footer>
         </blockquote>
       </div>
     </section>

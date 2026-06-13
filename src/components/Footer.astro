@@ -1,50 +1,51 @@
 ---
-import { AtSign, Mail, MapPin, MessageCircle, Phone, Share2 } from '@lucide/astro';
+import { X } from '@lucide/astro';
 import logo from '../assets/images/vm-logo.png';
 import { Image } from 'astro:assets';
+
+const reveal = "reveal-luxury will-change-transform transition-[opacity,transform,filter,clip-path] duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none";
 ---
 
-<footer id="contact" class="bg-zinc-950 text-white">
-  <div class="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:px-8 lg:grid-cols-[1.15fr_1fr_1fr] lg:py-18">
-    <div>
-      <Image src={logo} alt="Varsity Management crest logo" width={92} height={92} class="mb-6 h-20 w-20 object-contain" />
-      <p class="max-w-sm text-sm leading-7 text-zinc-300">
-        Strategic athletic management for brand growth, recruiting guidance, NIL opportunities, and long-term athlete development.
-      </p>
+<footer id="contact" x-data="{}" class="border-t border-white/10 bg-zinc-950 text-white">
+  <section class="mx-auto grid max-w-7xl gap-8 px-5 pb-14 pt-20 sm:px-8 lg:grid-cols-[1.2fr_1fr_1fr] lg:gap-18 lg:px-16 lg:pb-24 lg:pt-28">
+    <div x-intersect.once="$el.classList.add('is-shown')" class:list={[reveal, "flex items-start"]}>
+      <Image src={logo} alt="Varsity Management shield crest" class="block h-auto w-auto max-h-56 max-w-full object-contain sm:max-h-64" />
     </div>
 
-    <div>
-      <h2 class="text-sm font-bold uppercase tracking-[0.28em] text-red-400">Info</h2>
-      <div class="mt-6 space-y-4 text-sm text-zinc-200">
-        <a class="flex items-center gap-3 transition hover:text-red-300" href="tel:15044169318">
-          <Phone size={18} /> 504-416-9318
+    <div x-intersect.once="$el.classList.add('is-shown')" class:list={[reveal, "delay-100"]}>
+      <h2 class="text-xs font-bold uppercase tracking-[0.28em] text-red-200">Info</h2>
+      <div class="mt-6 flex flex-col gap-1">
+        <a class="min-h-11 w-fit font-mono text-sm tracking-[0.03em] transition hover:text-red-200" href="tel:15044169318">
+          504-416-9318
         </a>
-        <a class="flex items-center gap-3 transition hover:text-red-300" href="mailto:info@varsitymanagementllc.com">
-          <Mail size={18} /> info@varsitymanagementllc.com
+        <a class="min-h-11 w-fit font-mono text-sm tracking-[0.03em] transition hover:text-red-200" href="mailto:info@varsitymanagementllc.com">
+          info@varsitymanagementllc.com
         </a>
       </div>
     </div>
 
-    <div>
-      <h2 class="text-sm font-bold uppercase tracking-[0.28em] text-red-400">Address</h2>
-      <p class="mt-6 flex gap-3 text-sm leading-7 text-zinc-200">
-        <MapPin class="mt-1 shrink-0" size={18} />
-        <span>2090 Woodrow St<br />Mandeville LA 70448</span>
-      </p>
-      <div class="mt-7 flex gap-3" aria-label="Social links">
-        <a href="#" aria-label="Varsity Management on X" class="grid h-10 w-10 place-items-center bg-white/10 text-zinc-100 transition hover:bg-red-700">
-          <AtSign size={18} />
+    <div x-intersect.once="$el.classList.add('is-shown')" class:list={[reveal, "delay-200"]}>
+      <h2 class="text-xs font-bold uppercase tracking-[0.28em] text-red-200">Address</h2>
+      <address class="mt-6 font-mono text-sm not-italic leading-8 tracking-[0.03em] text-white">
+        2090 Woodrow St<br />Mandeville LA 70448
+      </address>
+      <div class="mt-7 flex gap-2.5" aria-label="Social links">
+        <a href="#" aria-label="Varsity Management on X" class="grid h-11 w-11 place-items-center bg-white/[0.08] text-white transition hover:bg-red-700">
+          <X size={18} />
         </a>
-        <a href="#" aria-label="Varsity Management on Instagram" class="grid h-10 w-10 place-items-center bg-white/10 text-zinc-100 transition hover:bg-red-700">
-          <MessageCircle size={18} />
+        <a href="#" aria-label="Varsity Management on Instagram" class="grid h-11 w-11 place-items-center bg-white/[0.08] text-white transition hover:bg-red-700">
+          <svg viewBox="0 0 24 24" class="h-[18px] w-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <rect x="3.5" y="3.5" width="17" height="17" rx="4.5" />
+            <circle cx="12" cy="12" r="4.1" />
+            <circle cx="17.2" cy="6.8" r="1.05" fill="currentColor" stroke="none" />
+          </svg>
         </a>
-        <a href="#" aria-label="Varsity Management on Facebook" class="grid h-10 w-10 place-items-center bg-white/10 text-zinc-100 transition hover:bg-red-700">
-          <Share2 size={18} />
+        <a href="#" aria-label="Varsity Management on Facebook" class="grid h-11 w-11 place-items-center bg-white/[0.08] text-white transition hover:bg-red-700">
+          <svg viewBox="0 0 24 24" class="h-[18px] w-[18px]" fill="currentColor" aria-hidden="true">
+            <path d="M13.5 21v-7h2.4l.4-3h-2.8V9.2c0-.87.24-1.46 1.48-1.46h1.58V5.06c-.27-.04-1.2-.11-2.28-.11-2.25 0-3.79 1.37-3.79 3.88V11H8.02v3h2.43v7h3.05z" />
+          </svg>
         </a>
       </div>
     </div>
-  </div>
-  <div class="border-t border-white/10 px-5 py-5 text-center text-xs uppercase tracking-[0.2em] text-zinc-500">
-    Varsity Management LLC
-  </div>
+  </section>
 </footer>
