@@ -7,18 +7,18 @@ const reveal = "reveal-luxury will-change-transform transition-[opacity,transfor
 ---
 
 <footer id="contact" x-data="{}" class="border-t border-white/10 bg-zinc-950 text-white">
-  <section class="mx-auto grid max-w-7xl gap-8 px-5 pb-14 pt-20 sm:px-8 lg:grid-cols-[1.2fr_1fr_1fr] lg:gap-18 lg:px-16 lg:pb-24 lg:pt-28">
+  <section class="mx-auto grid max-w-7xl gap-8 px-5 pb-14 pt-20 sm:px-8 lg:grid-cols-[auto_1fr_1fr_auto] lg:items-center lg:gap-x-24 lg:gap-y-8 lg:px-16 lg:pb-24 lg:pt-28">
     <div x-intersect.once="$el.classList.add('is-shown')" class:list={[reveal, "flex items-start"]}>
-      <Image src={logo} alt="Varsity Management shield crest" class="block h-auto w-auto max-h-56 max-w-full object-contain sm:max-h-64" />
+      <Image src={logo} alt="Varsity Management shield crest" class="block h-[150px] w-auto max-w-full object-contain" />
     </div>
 
     <div x-intersect.once="$el.classList.add('is-shown')" class:list={[reveal, "delay-100"]}>
-      <h2 class="text-xs font-bold uppercase tracking-[0.28em] text-red-200">Info</h2>
-      <div class="mt-6 flex flex-col gap-1">
-        <a class="min-h-11 w-fit font-mono text-sm tracking-[0.03em] transition hover:text-red-200" href="tel:15044169318">
+      <h2 class="text-xs font-bold uppercase tracking-[0.28em] text-red-200">Contact</h2>
+      <div class="mt-6 flex flex-col font-mono text-sm leading-8 tracking-[0.03em]">
+        <a class="w-fit transition hover:text-red-200" href="tel:15044169318">
           504-416-9318
         </a>
-        <a class="min-h-11 w-fit font-mono text-sm tracking-[0.03em] transition hover:text-red-200" href="mailto:info@varsitymanagementllc.com">
+        <a class="w-fit transition hover:text-red-200" href="mailto:info@varsitymanagementllc.com">
           info@varsitymanagementllc.com
         </a>
       </div>
@@ -29,6 +29,10 @@ const reveal = "reveal-luxury will-change-transform transition-[opacity,transfor
       <address class="mt-6 font-mono text-sm not-italic leading-8 tracking-[0.03em] text-white">
         2090 Woodrow St<br />Mandeville LA 70448
       </address>
+    </div>
+
+    <div x-intersect.once="$el.classList.add('is-shown')" class:list={[reveal, "delay-300"]}>
+      <h2 class="text-xs font-bold uppercase tracking-[0.28em] text-red-200">Social</h2>
       <div class="mt-7 flex gap-2.5" aria-label="Social links">
         <a href="#" aria-label="Varsity Management on X" class="grid h-11 w-11 place-items-center bg-white/[0.08] text-white transition hover:bg-red-700">
           <X size={18} />
