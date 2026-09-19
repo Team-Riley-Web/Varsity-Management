@@ -2,9 +2,15 @@
 import { Image } from 'astro:assets';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import heroFootball from '../assets/images/hero-football.jpg';
+import heroPoster from '../assets/images/hero-quarterback-poster.jpg';
+import heroNightLights from '../assets/videos/hero-night-lights.mp4';
+import heroQuarterback from '../assets/videos/hero-quarterback.mp4';
+import heroRopeClimb from '../assets/videos/hero-rope-climb.mp4';
+import heroJumpRope from '../assets/videos/hero-jump-rope.mp4';
+import heroLunge from '../assets/videos/hero-lunge.mp4';
+import heroBallControl from '../assets/videos/hero-ball-control.mp4';
 import quoteAthlete from '../assets/images/quote-athlete.jpg';
-import servicesFootball from '../assets/images/services-football.jpg';
+import heroFootball from '../assets/images/hero-football.jpg';
 import codyCorales from '../assets/images/athletes/cody-corales.png';
 import dajohnHoward from '../assets/images/athletes/dajohn-howard.jpg';
 import dejayPerkins from '../assets/images/athletes/dejay-perkins.png';
@@ -152,6 +158,10 @@ const athletes = [
   },
 ];
 
+// Hero clips, played in this order and cross-faded. Pexels footage, trimmed to
+// ~7s each. The first clip autoplays behind the poster; the rest load lazily.
+const heroVideos = [heroQuarterback, heroRopeClimb, heroJumpRope, heroLunge, heroBallControl, heroNightLights];
+
 const services = [
   ['Branding', 'Build a public identity that is clear, credible, and positioned for opportunity.'],
   ['Development', 'Shape athletic, personal, and professional growth around long-term goals.'],
@@ -168,14 +178,21 @@ const services = [
   <Header />
   <main id="top" x-data="{}" class="bg-zinc-950 text-white">
     <section class="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden pt-[116px]">
-      <Image
-        src={heroFootball}
-        alt="Football player at rest, helmet in hand, under stadium light"
-        widths={[640, 960, 1280, 1600]}
-        sizes="100vw"
-        priority
-        class="absolute inset-0 -z-20 h-full w-full object-cover object-[70%_center]"
-      />
+      <div class="absolute inset-0 -z-20 bg-zinc-950" aria-hidden="true">
+        {heroVideos.map((src, index) => (
+          <video
+            class:list={["absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out", index === 0 ? "opacity-100" : "opacity-0"]}
+            src={src}
+            poster={index === 0 ? heroPoster.src : undefined}
+            autoplay={index === 0}
+            muted
+            loop
+            playsinline
+            preload={index === 0 ? 'auto' : 'none'}
+            data-hero-slide={index}
+          ></video>
+        ))}
+      </div>
       <div class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(9,9,11,0.96),rgba(24,24,27,0.72)_46%,rgba(127,29,29,0.38)),linear-gradient(0deg,rgb(9,9,11)_0%,rgba(9,9,11,0.15)_48%)]"></div>
 
       <div class="mx-auto w-full max-w-7xl px-5 pb-[clamp(40px,7vh,96px)] sm:px-8 lg:px-16">
@@ -359,7 +376,7 @@ const services = [
     </div>
 
     <section id="services" class="relative isolate scroll-mt-[76px] overflow-hidden px-5 py-[clamp(72px,10vw,132px)] sm:px-8 lg:px-16">
-      <Image src={servicesFootball} alt="" widths={[640, 960, 1280]} sizes="100vw" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-30" />
+      <Image src={heroFootball} alt="" widths={[640, 960, 1280, 1600]} sizes="100vw" class="absolute inset-0 -z-20 h-full w-full object-cover object-[70%_center] opacity-30" />
       <div class="absolute inset-0 -z-10 bg-zinc-950/80"></div>
       <div class="mx-auto grid max-w-7xl gap-[clamp(40px,6vw,96px)] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
         <div x-intersect.once="$el.classList.add('is-shown')" class:list={[reveal, "reveal-left"]}>
@@ -405,3 +422,104 @@ const services = [
   </main>
   <Footer />
 </BaseLayout>
+
+<script>
+  const heroSlides = Array.from(document.querySelectorAll<HTMLVideoElement>('[data-hero-slide]'));
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Cross-fade length, matched to the duration-1000 class on the slides.
+  const HERO_CROSSFADE_MS = 1000;
+  // Longest a single slide may hold.
+  const HERO_HOLD_MAX_MS = 6000;
+  // The outgoing clip keeps playing through the cross-fade, so every clip needs
+  // that much footage left when it hands off — otherwise it loops on screen.
+  const HERO_HOLD_TAIL_MS = HERO_CROSSFADE_MS + 200;
+
+  let heroIndex = 0;
+  let heroTimer: number | undefined;
+
+  function heroHoldFor(slide: HTMLVideoElement | undefined) {
+    const seconds = slide?.duration;
+    if (!slide || !Number.isFinite(seconds) || (seconds as number) <= 0) return HERO_HOLD_MAX_MS;
+    const playable = (seconds as number) * 1000 - HERO_HOLD_TAIL_MS;
+    return playable > 0 ? Math.min(HERO_HOLD_MAX_MS, playable) : HERO_HOLD_MAX_MS;
+  }
+
+  function scheduleNextHero() {
+    window.clearTimeout(heroTimer);
+    const slide = heroSlides[heroIndex];
+    const advance = () => selectHero((heroIndex + 1) % heroSlides.length);
+
+    // No duration yet: re-measure once metadata lands, minus time already shown.
+    if (slide && !Number.isFinite(slide.duration)) {
+      const shownAt = Date.now();
+      slide.addEventListener(
+        'loadedmetadata',
+        () => {
+          if (heroSlides[heroIndex] !== slide) return;
+          window.clearTimeout(heroTimer);
+          heroTimer = window.setTimeout(advance, Math.max(heroHoldFor(slide) - (Date.now() - shownAt), 400));
+        },
+        { once: true },
+      );
+    }
+
+    heroTimer = window.setTimeout(advance, heroHoldFor(slide));
+  }
+
+  function selectHero(index: number) {
+    heroIndex = index;
+
+    heroSlides.forEach((slide, i) => {
+      const isSelected = i === index;
+      slide.classList.toggle('opacity-100', isSelected);
+      slide.classList.toggle('opacity-0', !isSelected);
+
+      // Restart from the first frame so a clip never hits its loop point on screen.
+      if (isSelected) {
+        slide.currentTime = 0;
+        slide.play().catch(() => {});
+      }
+    });
+
+    // Warm the next clip so its first frame is ready before the cross-fade.
+    const upcoming = heroSlides[(index + 1) % heroSlides.length];
+    if (upcoming && upcoming.preload !== 'auto') {
+      upcoming.preload = 'auto';
+      upcoming.load();
+    }
+
+    // Keep the outgoing clip playing through the fade, then pause it.
+    window.setTimeout(() => {
+      heroSlides.forEach((slide, i) => {
+        if (i !== heroIndex && !slide.paused) slide.pause();
+      });
+    }, HERO_CROSSFADE_MS);
+
+    scheduleNextHero();
+  }
+
+  // Load each clip's metadata after page load so holds are measured, without
+  // competing with the hero's first paint.
+  function warmHeroMetadata() {
+    heroSlides.forEach((slide) => {
+      if (slide.preload !== 'none') return;
+      slide.preload = 'metadata';
+      slide.load();
+    });
+  }
+
+  if (heroSlides.length && reduceMotion) {
+    // Hold on the poster frame of the first clip.
+    heroSlides[0].pause();
+  } else if (heroSlides.length > 1) {
+    // Warm slide 1 now; selectHero() only warms slides from the second hand-off on.
+    const second = heroSlides[1];
+    second.preload = 'auto';
+    second.load();
+    scheduleNextHero();
+
+    if (document.readyState === 'complete') warmHeroMetadata();
+    else window.addEventListener('load', warmHeroMetadata, { once: true });
+  }
+</script>
